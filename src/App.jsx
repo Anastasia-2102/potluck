@@ -14,11 +14,12 @@ function App() {
     guest_name: form.guestName.value,
     serves: Number(form.serves.value),
     kind_of_dish: form.kind.value,
-  })
+  }).select()
     if (result.error) {
     console.log(result.error.message)
     return
   }
+  console.log(result.data)
   form.reset()
   reload()
 }
