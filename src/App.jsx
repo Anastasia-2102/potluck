@@ -1,17 +1,39 @@
 import useTable from './useTable.js'
+import { supabase } from './utils/supabase'
 import MealList from './MealList.jsx'
 import './App.css'
 
 function App() {
-  const meals = useTable("meals")
+  const { data, error, reload } = useTable("meals")
   const drinks = useTable("drinks")
+  const addMeal = async (event) => {
+    event.preventDefault()
+  const form = event.target
+  const result = await supabase.from("meals").insert({
+    meal_name: form.mealName.value,
+    guest_name: form.guestName.value,
+    serves: Number(form.serves.value),
+  })
+    if (result.error) {
+    console.log(result.error.message)
+    return
+  }
+  form.reset()
+  reload()
+}
 
   return (
     <div>
       <h1>Potluck</h1>
-      <p>{meals.error}</p>
-      <button onClick={meals.reload}>Reload</button>
-      <MealList meals={meals.data} />
+      <form onSubmit={addMeal}>
+        <input name="mealName" placeholder="Dish" />
+        <input name="guestName" placeholder="Your name" />
+        <input name="serves" type="number" placeholder="Serves" />
+        <button>Add</button>
+      </form>
+      <p>{error}</p>
+      <button onClick={reload}>Reload</button>
+      <MealList meals={data} />
       <h2>Drinks</h2>
       {drinks.data.map((drink) => <p key={drink.id} className="card">{drink.drink_name}</p>)}
     </div>
