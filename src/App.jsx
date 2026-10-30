@@ -28,9 +28,9 @@ function App() {
     <div>
       <h1>Potluck</h1>
       <form onSubmit={addMeal}>
-        <input name="mealName" placeholder="Dish" />
-        <input name="guestName" placeholder="Your name" />
-        <input name="serves" type="number" placeholder="Serves" />
+        <input name="mealName" placeholder="Dish" required />
+        <input name="guestName" placeholder="Your name" required />
+        <input name="serves" type="number" placeholder="Serves" required />
         <select name="kind">
           <option>Main</option>
           <option>Side</option>
