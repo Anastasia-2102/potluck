@@ -1,15 +1,19 @@
 import useTable from './useTable.js'
-import MealCard from './MealCard.jsx'
+import MealList from './MealList.jsx'
 import './App.css'
 
 function App() {
-  const { data, error } = useTable("meals")
+  const meals = useTable("meals")
+  const drinks = useTable("drinks")
 
   return (
     <div>
       <h1>Potluck</h1>
-      <p>{error}</p>
-      {data.map((meal) => <MealCard key={meal.id} meal={meal} />)}
+      <p>{meals.error}</p>
+      <button onClick={meals.reload}>Reload</button>
+      <MealList meals={meals.data} />
+      <h2>Drinks</h2>
+      {drinks.data.map((drink) => <p key={drink.id} className="card">{drink.drink_name}</p>)}
     </div>
   )
 }
