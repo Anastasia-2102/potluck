@@ -13,6 +13,7 @@ function App() {
     meal_name: form.mealName.value,
     guest_name: form.guestName.value,
     serves: Number(form.serves.value),
+    kind_of_dish: form.kind.value,
   })
     if (result.error) {
     console.log(result.error.message)
@@ -29,6 +30,11 @@ function App() {
         <input name="mealName" placeholder="Dish" />
         <input name="guestName" placeholder="Your name" />
         <input name="serves" type="number" placeholder="Serves" />
+        <select name="kind">
+          <option>Main</option>
+          <option>Side</option>
+          <option>Dessert</option>
+        </select>
         <button>Add</button>
       </form>
       <p>{error}</p>
