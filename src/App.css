@@ -1,0 +1,108 @@
+h2 {
+  color: #557a46;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  max-width: 400px;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px solid #7c9a6d;
+  border-radius: 8px;
+  background-color: #f1f5e9;
+   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+form input,
+form select {
+  width: auto;
+  flex: 1 1 180px;
+  height: 3rem;
+  margin-bottom: 0;
+  padding: 0.5rem 0.75rem;
+  box-sizing: border-box;
+}
+
+form button {
+  width: auto;
+  margin-bottom: 0;
+  align-self: stretch;
+}
+
+button {
+  height: 3rem;
+  min-height: 3rem;
+  padding: 0.5rem 1.25rem;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0d47a1;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+.serve-btn {
+  margin-right: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.remove-btn {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.serve-btn:hover {
+  background-color: #388e3c;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #c62828;
+  cursor: pointer;
+}
+
+input,
+select {
+  border: 1px solid #7c9a6d;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333;
+}
