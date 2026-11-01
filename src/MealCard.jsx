@@ -12,8 +12,8 @@ function MealCard({ meal, onRemove, onServeMore }) {
       <h2>{meal.meal_name}</h2>
       <p>Brought by {meal.guest_name}</p>
       <p>Serves {meal.serves}</p>
-      <button onClick={serveMore}>+1</button>
-      <button onClick={remove}>Remove</button>
+      <button className="serve-btn" onClick={serveMore}>+1</button>
+      <button className="remove-btn" onClick={remove}>Remove</button>
     </div>
   )
 }

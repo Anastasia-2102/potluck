@@ -149,8 +149,10 @@ console.log("Inserted:", result)
         <button>Add</button>
       </form>
       <button onClick={addTwo}>Add two</button>
-        <p>{formError}</p>
-        <p>{error}</p>
+      <br />
+        {formError && <p>{formError}</p>}
+        {error && <p>{error}</p>}
+
       <button onClick={reload}>Reload</button>
     <form onSubmit={search}>
         <input name="query" placeholder="Search dishes" />
@@ -160,6 +162,7 @@ console.log("Inserted:", result)
       <h2>Three dishes</h2>
       <button onClick={showFirstThree}>Show three</button>
       <MealList meals={firstThree} onRemove={removeMeal} />
+      
       <button onClick={showNewest}>Newest first</button>
       <MealList meals={newest} onRemove={removeMeal} />
       <MealList meals={data} onRemove={removeMeal} onServeMore={addServing} />
@@ -182,10 +185,12 @@ console.log("Inserted:", result)
         <button>Add</button>
       </form>
       <div className="meals">
-      {drinks.data.map((drink) => <DrinkCard key={drink.id} drink={drink} />)}
-      </div>
+  {drinks.data.map((drink) => <DrinkCard key={drink.id} drink={drink} />)}
     </div>
-
+      <footer>
+        <p>© 2026 Potluck App</p>
+      </footer>
+    </div>
   )
 }
 
