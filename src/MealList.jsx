@@ -1,9 +1,9 @@
 import MealCard from './MealCard.jsx'
 
-function MealList({ meals, onRemove }) {
+function MealList({ meals, onRemove, onServeMore }) {
   return (
     <div>
-      {meals.map((meal) => <MealCard key={meal.id} meal={meal} onRemove={onRemove} />)}
+      {meals.map((meal) => <MealCard key={meal.id} meal={meal} onRemove={onRemove} onServeMore={onServeMore} />)}
     </div>
   )
 }

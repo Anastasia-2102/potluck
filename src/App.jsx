@@ -2,11 +2,16 @@ import { useState } from 'react'
 import useTable from './useTable.js'
 import { supabase } from './utils/supabase'
 import MealList from './MealList.jsx'
+import DrinkCard from './DrinkCard.jsx'
 import './App.css'
 
 function App() {
   const { data, error, reload } = useTable("meals")
   const [formError, setFormError] = useState("")
+  const [found, setFound] = useState([])
+  const [firstThree, setFirstThree] = useState([])
+  const [picked, setPicked] = useState([])
+  const [newest, setNewest] = useState([])
   const drinks = useTable("drinks")
   let total = 0
     data.forEach((meal) => {
@@ -30,6 +35,21 @@ function App() {
   reload()
 }
 
+    const addDrink = async (event) => {
+    event.preventDefault()
+    const form = event.target
+    const result = await supabase.from("drinks").insert({
+      drink_name: form.drinkName.value,
+      guest_name: form.guestName.value,
+    })
+    if (result.error) {
+      console.log(result.error.message)
+      return
+    }
+    form.reset()
+    drinks.reload()
+  }
+
     const removeMeal = async (id) => {
     const result = await supabase.from("meals").delete().eq("id", id)
     if (result.error) {
@@ -38,6 +58,66 @@ function App() {
     }
     reload()
   }
+
+    const addServing = async (meal) => {
+    const result = await supabase.from("meals").update({ serves: meal.serves + 1 }).eq("id", meal.id)
+    if (result.error) {
+      console.log(result.error.message)
+      return
+    }
+    reload()
+  }
+
+  const showAnas = async () => {
+    const result = await supabase.from("meals").select().eq("guest_name", "Ana")
+    if (result.error) {
+      console.log(result.error.message)
+      return
+    }
+    setPicked(result.data)
+  }
+
+  const pickGuest = async (event) => {
+    event.preventDefault()
+  const form = event.target
+  const result = await supabase.from("meals").select().eq("guest_name", form.guest.value)
+  if (result.error) {
+    console.log(result.error.message)
+    return
+  }
+  setPicked(result.data)
+}
+
+  const search = async (event) => {
+  event.preventDefault()
+  const form = event.target
+  const result = await supabase.from("meals").select().ilike("meal_name", "%" + form.query.value + "%")
+  if (result.error) {
+    console.log(result.error.message)
+    return
+  }
+  setFound(result.data)
+}
+
+  const showNewest = async () => {
+    const result = await supabase.from("meals").select().order("created_at", { ascending: false })
+    if (result.error) {
+      console.log(result.error.message)
+      return
+    }
+    setNewest(result.data)
+  }
+
+  const showFirstThree = async () => {
+  const result = await supabase.from("meals").select().limit(3)
+  if (result.error) {
+    console.log(result.error.message)
+    return
+  }
+  setFirstThree(result.data)
+}
+
+  const anas = data.filter((meal) => meal.guest_name === "Ana")
 
   const addTwo = async () => {
     console.log("addTwo clicked")
@@ -69,12 +149,39 @@ console.log("Inserted:", result)
         <button>Add</button>
       </form>
       <button onClick={addTwo}>Add two</button>
-      <p>{formError}</p>
-      <p>{error}</p>
+        <p>{formError}</p>
+        <p>{error}</p>
       <button onClick={reload}>Reload</button>
-      <MealList meals={data} onRemove={removeMeal} />
+    <form onSubmit={search}>
+        <input name="query" placeholder="Search dishes" />
+        <button>Search</button>
+    </form>
+        <MealList meals={found} onRemove={removeMeal} onServeMore={addServing} />
+      <h2>Three dishes</h2>
+      <button onClick={showFirstThree}>Show three</button>
+      <MealList meals={firstThree} onRemove={removeMeal} />
+      <button onClick={showNewest}>Newest first</button>
+      <MealList meals={newest} onRemove={removeMeal} />
+      <MealList meals={data} onRemove={removeMeal} onServeMore={addServing} />
+      <h2>Ana's dishes</h2>
+      <MealList meals={anas} onRemove={removeMeal} />
+      <button onClick={showAnas}>Ask the table</button>
+      <form onSubmit={pickGuest}>
+        <select name="guest">
+          <option>Ana</option>
+          <option>Ben</option>
+          <option>Chloe</option>
+        </select>
+      <button>Show</button>
+      </form>
+      <MealList meals={picked} onRemove={removeMeal} />
       <h2>Drinks</h2>
-      {drinks.data.map((drink) => <p key={drink.id} className="card">{drink.drink_name}</p>)}
+      <form onSubmit={addDrink}>
+        <input name="drinkName" placeholder="Drink" />
+        <input name="guestName" placeholder="Your name" />
+        <button>Add</button>
+      </form>
+      {drinks.data.map((drink) => <DrinkCard key={drink.id} drink={drink} />)}
     </div>
   )
 }
