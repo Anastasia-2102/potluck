@@ -2,11 +2,17 @@
   max-width: 400px;
   margin-top: 1rem;
   padding: 1rem;
-  border: 2px solid #c9a227;
+  border: 2px solid #7c9a6d;
   border-radius: 8px;
-  background-color: #fff8e1;
+  background-color: #f1f5e9;
 }
 
 .card h2 {
   margin-top: 0;
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
 }

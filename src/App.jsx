@@ -181,8 +181,11 @@ console.log("Inserted:", result)
         <input name="guestName" placeholder="Your name" />
         <button>Add</button>
       </form>
+      <div className="meals">
       {drinks.data.map((drink) => <DrinkCard key={drink.id} drink={drink} />)}
+      </div>
     </div>
+
   )
 }
 
