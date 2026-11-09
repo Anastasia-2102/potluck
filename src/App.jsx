@@ -167,6 +167,7 @@ console.log("Inserted:", result)
       <MealList meals={newest} onRemove={removeMeal} />
       <MealList meals={data} onRemove={removeMeal} onServeMore={addServing} />
       <h2>Ana's dishes</h2>
+      <p>Ana brought {anas.length} dishes</p>
       <MealList meals={anas} onRemove={removeMeal} />
       <button onClick={showAnas}>Ask the table</button>
       <form onSubmit={pickGuest}>
